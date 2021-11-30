@@ -1,0 +1,28 @@
+---
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  labels:
+    app: seldon
+  name: explainer
+  namespace: kubeflow-seldon
+spec:
+  name: explainer
+  annotations:
+    seldon.io/rest-read-timeout: "5000"
+    seldon.io/rest-connection-timeout: "5000"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: skshreyas714/explainer:v3
+          imagePullPolicy: IfNotPresent
+          name: explainer
+    graph:
+      children: []
+      name: explainer
+      type: MODEL
+      endpoint:
+        type: REST
+    name: explainer
+    replicas: 1

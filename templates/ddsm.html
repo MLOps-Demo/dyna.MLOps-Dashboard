@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link href='http://fonts.googleapis.com/css?family=Roboto:100,300,100italic,400,300italic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+		
+		
+    
+    <!-- BOOTSTRAP -->
+    <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="/static/assets/css/font-awesome.min.css">
+    <!-- CUSTOM STYLING -->
+    <link href="/static/assets/css/styles.css" rel="stylesheet">
+    <!-- PRELOADER -->  
+    <link href="/static/assets/css/loader.css" rel="stylesheet">
+    <link href="/static/assets/css/workspace.css" rel="stylesheet">
+    <style> 
+      input[type=file], input[type=submit], input[type=reset] {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+      </style>
+    <style>
+      #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      #customers td, #customers th {
+        border: 1px solid rgb(0, 0, 0);
+        padding: 8px;
+        text-align: center;
+      }
+      
+      #customers tr:nth-child(even){background-color: #f2f2f2;}
+      
+      #customers tr:hover {background-color: rgb(218, 245, 136);}
+      
+      #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #044caa;
+        color: white;
+        text-align: center;
+      }
+      </style>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+          
+          <script>
+            function updateImage() {
+            
+            obj = document.imagename;
+         
+            obj.src = obj.src.split("?")[0] + "?" + new Date().getTime();
+         
+            //Following statement sets the delay before the function will
+         
+            //call itself again (in milliseconds)
+         
+            setTimeout("updateImage()",1000);
+         
+         }
+              $(document).ready(function(){
+                  $(".dataframe tr").click(function(){
+                     $(this).addClass('selected').siblings().removeClass('selected');    
+                     var value=$(this).find('td:first').html();
+                     //alert(value);   
+                     $.ajax({
+                      type : 'POST',
+                      url : "{{url_for('pass_val')}}",
+                      data : {'data':value},
+                       success: function(response) {
+                       $("#response").html(response);
+                     }
+                    });  
+                  });
+  
+                  $('.ok2').on('click', function(e){
+                  alert($("#table tr.selected td:first").html());
+                  });
+                  
+                  $('.ok1').on('click', function(e){
+                  alert($("#table tr.selected td:first").html());
+                  });
+              });
+          </script>
+        
+</head>
+<body class="body-id">
+    <div class="nav-container">
+      <ul class="nav-items">
+        <!-- Navigation -->
+        <li class="nav-item"><a href="#intro">Introduction</a></li>
+        <li class="nav-item"><a href="https://studio.iterative.ai/team/MLOps-team/views/ddsm-p7jzanpju0" target="_blank" rel="noopener noreferrer">Model Experiments</a></li>
+        <!-- <li class="nav-item"><a href="#xgboost">Model Deployment</a></li> -->
+        <!-- <li class="nav-item"><a href="#">Contact</a></li> -->
+        <!-- Dropdown menu -->
+        <li class="nav-item nav-item-dropdown">
+          <a class="dropdown-trigger" href="#">Model Deployment</a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-menu-item">
+              <!-- <a href="http://52.66.83.49:5601/app/kibana#/dashboard/ae2d5310-2747-11ec-ac7f-d9f63dec039c?_g=(refreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))">Kafka Streaming</a> -->
+            </li>
+            <li class="dropdown-menu-item">
+              <a href="#xgboost">Batch Processing</a>
+            </li>
+            <!-- <li class="dropdown-menu-item">
+              <a href="#">Dropdown Item 3</a>
+            </li> -->
+          </ul>
+        </li>
+        <li class="nav-item nav-item-dropdown">
+          <a class="dropdown-trigger" href="#">Model Monitoring</a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-menu-item">
+              <a href="https://apc01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fa5d5ec501952b4e8eb09886c9408e3a9-1473537899.ap-south-1.elb.amazonaws.com%3A3000%2Fd%2F4h_Ns0V7z%2Fprediction-analytics&data=04%7C01%7Camit.chakraborty%40hcl.com%7Cffe2a8bb8fd54c4dfdda08d987068d2c%7C189de737c93a4f5a8b686f4ca9941912%7C0%7C0%7C637689284469703526%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=jnB5GHkvQ%2Fm%2FIyWvV4R11ZhOY7MA04bVTAJkuFwphE4%3D&reserved=0" target="_blank" rel="noopener noreferrer" >Dashboard - 1</a>
+            </li>
+            <li class="dropdown-menu-item"> 
+              <!-- Kibana Dashboard Link will bepasted here  -->
+              <a href="
+              http://52.66.83.49:5601/app/kibana#/dashboard/4ab4bc50-2748-11ec-ac7f-d9f63dec039c?_g=(refreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))" target="_blank" rel="noopener noreferrer">Dashboard - 2</a>
+            </li>
+            <li class="dropdown-menu-item">
+              <a href="#grafana">Dropdown Item 3</a>
+            </li>
+            <li class="dropdown-menu-item">
+              <a href="#grafana">Dropdown Item 3</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="/navigation-page">Back</a></li>
+      </ul>
+    </div>
+
+
+    <div> 
+      <object type="text/html" data="https://apc01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fa5d5ec501952b4e8eb09886c9408e3a9-1473537899.ap-south-1.elb.amazonaws.com%3A3000%2Fd%2F4h_Ns0V7z%2Fprediction-analytics&data=04%7C01%7Camit.chakraborty%40hcl.com%7Cffe2a8bb8fd54c4dfdda08d987068d2c%7C189de737c93a4f5a8b686f4ca9941912%7C0%7C0%7C637689284469703526%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=jnB5GHkvQ%2Fm%2FIyWvV4R11ZhOY7MA04bVTAJkuFwphE4%3D&reserved=0" width="97%" height="750px" style="overflow:auto;border:0px ridge blue">
+      </object>
+  </div>
+  <div> 
+    <object type="text/html" data="http://52.66.83.49:5601/app/kibana#/dashboard/4ab4bc50-2748-11ec-ac7f-d9f63dec039c?_g=(refreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))" width="97%" height="600px" style="overflow:auto;border:0px ridge blue">
+    </object>
+</div>
+<div> 
+  <object type="text/html" data="http://15.207.94.167:5000/#/" width="97%" height="600px" style="overflow:auto;border:0px ridge blue">
+  </object>
+</div>
+<div> 
+  <object type="text/html" data="http://15.207.94.167:8080/admin/" width="97%" height="600px" style="overflow:auto;border:0px ridge blue">
+  </object>
+</div>
+<div> 
+  <object type="text/html" data="http://127.0.0.1:5000/" width="100%" height="600px" style="overflow:auto;border:0px ridge blue">
+  </object>
+</div>
+<div>
+    <div id="main" >
+        <!-- Intro -->
+           <article id="intro">
+                <!-- <h2 class="major">Use Case</h2>
+                <p>Here we are describing all the classes given in the data set</p>
+                <h3>Description of Dataset</h3> -->
+                <img name ="imagename" class="image main" src="static/images/ddsm-example.jpg">
+            </article>
+
+        <!-- Xgbooxt -->
+            <article id="xgboost">
+                <h2 class="major">Image Classification (DDSM) Model</h2>
+                <!-- <div class="col-sm">
+                  <h1><span class="badge badge-danger">Quality Inspection</span></h1>
+                </div> -->
+                <div class="container">
+                  <div class="row">
+                
+                    <div class="col-sm">
+                      <span class="border border-primary">
+                        <img src="{{ user_image }}" alt="Selected Image" class="img-thumbnail">
+                      </span>
+                    </div>
+                
+                    <div class="col-sm">
+                      <h1>Detected Disease:   <span>{{product}}</span></h1>
+                    </div>
+                
+                  </div>
+                </div>
+                <!-- action = "/predict" -->
+            
+                <div class="col-sm">
+                  <form  method = "post" enctype="multipart/form-data">
+                      <input type="file" name="file" />
+                      <input type = "submit" value="Upload">
+                  </form>
+                </div>
+            </article>
+            <article id="grafana" >
+                <!-- <h2 class="major">Grafana Dashboard</h2> -->
+                 <div> 
+                    <object type="text/html" data="http://127.0.0.1:5000/" width="100%" height="1000px" style="overflow:auto;border:0px ridge blue">
+                    </object>
+                </div>
+                  
+            </article>	
+            
+            <article id="batch-processing" >
+              <h2 class="major">Kafka</h2>
+              
+          </article>
+
+    </div>
+</div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <!-- SMOOTH SCROLL -->
+    <script src="/static/assets/js/smooth-scroll.min.js"></script>
+    <!-- PARALLAX IMG -->
+    <script src="/static/assets/js/jquery.parallax-1.1.3.js"></script>
+    <!-- SCROLL REVEAL -->
+    <script src="/static/assets/js/scrollReveal.min.js"></script>
+    <!-- FUNCTIONS -->
+    <script src="/static/assets/js/functions.js"></script>
+
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/js/browser.min.js"></script>
+    <script src="/static/assets/js/breakpoints.min.js"></script>
+    <script src="/static/assets/js/util.js"></script>
+    <script src="/static/assets/js/main.js"></script>
+  </body>
+</html>

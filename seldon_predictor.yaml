@@ -1,0 +1,28 @@
+---
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  labels:
+    app: seldon
+  name: predictor
+  namespace: kubeflow-seldon
+spec:
+  name: predictor
+  annotations:
+    seldon.io/rest-read-timeout: "5000"
+    seldon.io/rest-connection-timeout: "5000"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: skshreyas714/production-optimization:gbrtv4
+          imagePullPolicy: IfNotPresent
+          name: predictor
+    graph:
+      children: []
+      name: predictor
+      type: MODEL
+      endpoint:
+        type: REST
+    name: predictor
+    replicas: 1
